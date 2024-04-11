@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class EpisodeListConfig(AppConfig):
+class BorrowingConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'episode_list'
+    name = 'borrowing'
