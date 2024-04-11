@@ -1,0 +1,12 @@
+-> django project
+
+-> user registration/authorization flow
+-> should use database (SQLite is fine)
+-> should use virtualenv and  have requirements.txt
+(docker is great but not must have feature)
+-> should include db queries, working with tables
+and showing at least one report with charts
+-> at least one user input form that adds/changes something in db
+
+-> optionally use bootstrap
+
