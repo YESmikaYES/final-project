@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("core.urls")),
     path("borrow/", include("borrowing.urls")),
-    path("return/", include("returning.urls"))
+    path("return/", include("returning.urls")),
+    path("profile/", include("authentification.urls"))
+
 
 ]
