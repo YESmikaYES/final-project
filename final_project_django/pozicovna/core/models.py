@@ -22,15 +22,34 @@ class Car(models.Model):
     kilometrage = models.IntegerField()
     current_user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="name of current user of this car", blank=True, default=None, null=True)
     
-    def borrow(self, user:Profile):
-        if user.profile.borrowed_vehicles < 5 and self.current_user == None:
-            self.current_user = user.profile
-            user.profile.borrowed_vehicles += 1
+    def borrow(self, user:Profile) -> HttpResponse:
+        if self.current_user == None:
+            if user.profile.borrowed_vehicles < 5:
+                self.current_user = user.profile
+                user.profile.borrowed_vehicles += 1
+                self.save()
+                user.profile.save()
+                return HttpResponse("Vehicle borrowed successfully")
+            
+            else:
+                return HttpResponse("User has reached borrowed vehicle limit")
+
+        elif self.current_user == user.profile:
+            return HttpResponse("Vehicle already in use by you")
+        
+        else:
+            return HttpResponse("Vehicle already in use by another user")
+
+    def give_back(self, user:Profile) -> HttpResponse:
+        if self.current_user == user.profile:
+            self.current_user = None
+            user.profile.borrowed_vehicles -= 1
             self.save()
             user.profile.save()
-
+            return HttpResponse("Vehicle returned successfully")
+        
         else:
-            return HttpResponse("User has reached borrowed vehicle limit")
+            return HttpResponse("This vehicle cannot be returned by you because it isn't in use by you")
 
 
 # class Motorcycle(models.Model):

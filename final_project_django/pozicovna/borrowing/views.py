@@ -8,5 +8,4 @@ from core.models import Car
 @login_required
 def borrow_car(request, id):
     car = Car.objects.get(id=id)
-    car.borrow(request.user)    
-    return HttpResponse("car borrowed successfully")
+    return car.borrow(request.user)
