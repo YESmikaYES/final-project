@@ -22,7 +22,8 @@ urlpatterns = [
     path("", include("core.urls")),
     path("borrow/", include("borrowing.urls")),
     path("return/", include("returning.urls")),
-    path("profile/", include("authentification.urls"))
+    path("profile/", include("authentification.urls")),
+    path("offers/", include("offering.urls"))
 
 
 ]

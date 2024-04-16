@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core.apps.CoreConfig'
+    'core.apps.CoreConfig',
+    'offering.apps.OfferingConfig'
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / "authentification" / "templates"
+            BASE_DIR / "authentification" / "templates",
+            BASE_DIR / "offering" / "templates"
+
         ],
         'APP_DIRS': True,
         'OPTIONS': {
