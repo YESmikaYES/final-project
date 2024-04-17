@@ -11,6 +11,7 @@ class Profile(models.Model):
     borrowed_vehicles = models.IntegerField(verbose_name="number of vehicles borrowed by user", validators=[MaxValueValidator(5), MinValueValidator(0)], default=0)
     def __str__(self) -> str:
         return self.user.username
+    
 
 class Car(models.Model):
     name = models.CharField(max_length=50)

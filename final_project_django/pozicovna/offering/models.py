@@ -15,4 +15,5 @@ class OfferedCar(models.Model):
     offering_user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="name of current user of this car")
 
     def accept_car(self):
-        pass
+        Car(name=self.name, wheels=self.wheels, car_type=self.car_type, manufacturer=self.manufacturer, clutch=self.clutch, license_plate=self.license_plate, kilometrage=self.kilometrage).save()
+        self.delete()

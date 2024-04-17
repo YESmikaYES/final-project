@@ -1,0 +1,19 @@
+<header class="header">
+  <nav>
+    <h4><a class="heading" href="{% url 'home_page' %}">Home</a></h4>
+  
+    <h4><a class="heading" href="{% url 'car_list' %}">Our Cars</a></h4>
+  
+    <h4><a class="heading" href="{% url 'offer_car' %}">Offer a Car</a></h4>
+  {% if user.is_authenticated %}
+  <form action="{% url 'logout' %}" method="post" class="heading">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+  </form>
+  {% else %}
+    <a class="heading" href="{% url 'login' %}">Log In</a>
+    <a class="heading"> / </a>
+    <a class="heading" href="{% url 'signup' %}">Sign Up</a>
+  {% endif %}
+</nav>
+</header>

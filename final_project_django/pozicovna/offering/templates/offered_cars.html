@@ -1,0 +1,6 @@
+<ul>
+    {% for offer in offers %}
+        <li><a href="{% url 'accept_car' offer.id%}">{{ offer.name }}</a>
+    {% endfor %}
+</ul>
+

@@ -5,7 +5,7 @@ from django.contrib.auth import logout
 from core.models import Car
 
 # Create your views here.
-@login_required
+@login_required(login_url='login')
 def borrow_car(request, id):
     car = Car.objects.get(id=id)
     return car.borrow(request.user)
