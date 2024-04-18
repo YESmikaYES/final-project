@@ -1,0 +1,14 @@
+<h1>{{user.username}}</h1>
+<ul>
+    <li>{{user.first_name}}</li>
+    <li>{{user.last_name}}</li>
+    <li>{{user.email}}</li>
+</ul>
+
+<h2>Your cars</h2>
+<ul>
+    {% for car in cars %}
+    <li><a href="{% url 'car_detail' car.id %}">{{ car }}</a>
+        <a href="{% url 'car_return' car.id %}">Return this car</a>
+    {% endfor %}
+</ul>

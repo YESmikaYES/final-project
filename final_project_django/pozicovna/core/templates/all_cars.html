@@ -1,5 +1,5 @@
 <ul>
     {% for car in cars %}
-        <li>{{ car.name }}
+        <li><a href="{% url 'car_detail' car.id %}">{{ car.name }}</a>
     {% endfor %}
 </ul>
