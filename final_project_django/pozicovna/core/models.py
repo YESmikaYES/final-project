@@ -52,6 +52,12 @@ class Car(models.Model):
         else:
             return HttpResponse("This vehicle cannot be returned by you because it isn't in use by you")
 
+    def __str__(self) -> str:
+        if self.car_type == "formula":
+            return self.name
+        else:
+            return f"{self.manufacturer} {self.name}"
+
 
 # class Motorcycle(models.Model):
 #     # to be added

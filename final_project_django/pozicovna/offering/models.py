@@ -17,3 +17,9 @@ class OfferedCar(models.Model):
     def accept_car(self):
         Car(name=self.name, wheels=self.wheels, car_type=self.car_type, manufacturer=self.manufacturer, clutch=self.clutch, license_plate=self.license_plate, kilometrage=self.kilometrage).save()
         self.delete()
+
+    def __str__(self) -> str:
+        if self.car_type == "formula":
+            return self.name
+        else:
+            return f"{self.manufacturer} {self.name}"
