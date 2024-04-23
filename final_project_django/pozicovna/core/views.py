@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Car
 from django.template import loader
-from django.contrib.auth import login, authenticate, logout
 
 # Create your views here.
 def car_list(request):

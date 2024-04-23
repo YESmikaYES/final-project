@@ -1,0 +1,92 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Our Cars
+{% endblock %}
+
+{% block content %}
+<div class="flex flex-wrap justify-center">
+<div id="piechart"></div>
+<div id="manufacturer-bar"></div>
+<div id="type-bar"></div>
+</div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{{ manufacturers_data|json_script:"manufacturers-data" }}
+
+{{ clutch_data|json_script:"clutch-data" }}
+
+{{ car_type_data|json_script:"car-type-data" }}
+
+<script type="text/javascript">
+  // Load google charts
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+  var manufacturersData = JSON.parse(document.getElementById("manufacturers-data").textContent);
+  var clutchData = JSON.parse(document.getElementById("clutch-data").textContent);
+  var carTypeData = JSON.parse(document.getElementById("car-type-data").textContent);
+
+
+
+  // Draw the chart and set the chart values
+  function drawChart() {
+    // pie chart for clutches
+    var arrayClutch = [
+    ['Clutch types', 'Borrowed cars which have this type of clutch'],
+    ['Manual', clutchData.manual],
+    ['Automatic', clutchData.automatic]
+  ]
+    var dataClutch = google.visualization.arrayToDataTable(arrayClutch);
+  
+    // Optional; add a title and set the width and height of the chart
+    var optionsClutch = {'title':'Comparison of borrowed cars based on clutch type', 'width':750, 'height':600, 'is3D': true};
+  
+    // Display the chart inside the <div> element with id="piechart"
+    var chartClutch = new google.visualization.PieChart(document.getElementById('piechart'));
+    chartClutch.draw(dataClutch, optionsClutch);
+
+
+
+
+    // bar chart for manufacturers
+    var arrayManufacturers = [['Manufacturers', 'Amount of Cars']];
+    var manufacturers = Object.keys(manufacturersData)
+
+
+    for (let manufacturer in manufacturers) {
+      arrayManufacturers.push([manufacturers[manufacturer].replace("_", " "), eval("manufacturersData." + manufacturers[manufacturer])])
+    };
+
+
+    var dataManufacturers = google.visualization.arrayToDataTable(arrayManufacturers)
+
+    // Optional; add a title and set the width and height of the chart
+    var optionsManufacturers = {'title':'Comparison of borrowed cars based on their manufacturer', 'width':800, 'height':500, 'bar': {'groupWidth': "90%"}};
+  
+    // Display the chart inside the <div> element with id="piechart"
+    var chartManufacturers = new google.visualization.ColumnChart(document.getElementById('manufacturer-bar'));
+    chartManufacturers.draw(dataManufacturers, optionsManufacturers);
+
+
+
+    // vertical bar chart for car types
+    var arrayCarTypes = [['Car types', 'Amount of Cars']];
+    var carTypes = Object.keys(carTypeData)
+
+
+    for (let carType in carTypes) {
+      arrayCarTypes.push([carTypes[carType].replace("_", " "), eval("carTypeData." + carTypes[carType])])
+    };
+
+
+    var dataCarTypes = google.visualization.arrayToDataTable(arrayCarTypes)
+
+    // Optional; add a title and set the width and height of the chart
+    var optionsCarTypes = {'title':'Comparison of borrowed cars based on the type of car they are', 'width':800, 'height':800, 'bar': {'groupWidth': "70%"}};
+  
+    // Display the chart inside the <div> element with id="piechart"
+    var chartCarTypes = new google.visualization.BarChart(document.getElementById('type-bar'));
+    chartCarTypes.draw(dataCarTypes, optionsCarTypes);
+  }
+  </script>
+{% endblock %}

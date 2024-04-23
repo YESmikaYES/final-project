@@ -1,6 +1,68 @@
-<h1>{{user.username}}</h1>
-<ul>
-    <li>{{user.first_name}}</li>
-    <li>{{user.last_name}}</li>
-    <li>{{user.email}}</li>
-</ul>
+{% extends "master.html" %}
+
+{% block title %}
+    Your Profile
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-8 flex">
+    <!-- Profile Section -->
+    <div class="w-1/2 pr-8">
+      <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <!-- Profile Header -->
+        <div class="bg-gray-200 px-6 py-4">
+          <h2 class="text-2xl font-semibold text-gray-800">Profile</h2>
+          <p class="text-gray-600">Welcome to your profile page</p>
+        </div>
+        <!-- Profile Content -->
+        <div class="p-6">
+          <!-- Profile Picture -->
+          <div class="flex justify-center">
+            <img class="w-32 h-32 rounded-full" src="https://via.placeholder.com/150" alt="Profile Picture">
+          </div>
+          <!-- Profile Details -->
+          <div class="mt-4">
+            <h3 class="text-xl font-semibold text-gray-800">{{ user.username }}</h3>
+            <p class="text-gray-600">{{ user.first_name }} {{ user.last_name }}</p>
+            <p class="text-gray-600">{{ user.email }}</p>
+          </div>
+          <!-- Bio -->
+          <div class="mt-4">
+            <h3 class="text-xl font-semibold text-gray-800">Bio</h3>
+            <p class="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales purus ut leo bibendum, nec blandit est convallis.</p>
+          </div>
+          <br />
+          <!-- Profile Footer -->
+          <div class="bg-gray-200 px-6 py-4 flex justify-center">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mr-4">Edit Profile</button>
+            <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Change Password</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Section -->
+    <div class="w-1/2 pl-8">
+      <!-- List of Cards -->
+      <div class="max-w-md mx-auto bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="p-6">
+          <h2 class="text-2xl font-semibold text-gray-800">Your Cars</h2>
+          {% if cars_bool %}
+          {% for car in cars %}
+          <!-- Individual Card -->
+          <div class="mt-4 bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center" onclick="//{% url 'car_detail' car.id %}">
+            <h3 class="text-lg font-semibold text-gray-800">{{ car }}</h3>
+            <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onclick="//{% url 'car_return' car.id %}">Return Car</button>
+          </div>
+          <!-- Repeat for more cards -->
+          {% endfor %}
+          {% else %}
+          <br />
+          <h3 class="text-lg font-semibold text-gray-800 justify-center">You do not have any cars rented at the moment</h3>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

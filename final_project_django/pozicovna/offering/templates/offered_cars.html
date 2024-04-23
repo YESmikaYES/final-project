@@ -1,6 +1,51 @@
-<ul>
+{% extends "master.html" %}
+
+{% block title %}
+    Our Cars
+{% endblock %}
+
+{% block content %}
+<!-- <ul>
     {% for offer in offers %}
         <li><a href="{% url 'accept_car' offer.id%}">{{ offer.name }}</a>
     {% endfor %}
-</ul>
+</ul> -->
+<div class="container mx-auto py-8">
 
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+      <tr>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Name
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Wheels
+        </th>
+        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            
+        </th>
+        <!-- Add more headers if needed -->
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+      <!-- Odd line -->
+      {% for offer in offers %}
+      <tr class="odd:bg-white even:bg-gray-100">
+        <td class="px-6 py-4 whitespace-nowrap">
+          <div class="text-sm text-gray-900">{{ offer.name }}</div>
+        </td>
+        <td class="px-6 py-4 whitespace-nowrap">
+          <div class="text-sm text-gray-900">{{ offer.wheels }}</div>
+        </td>
+        <!-- Button cell -->
+        <td class="px-6 py-4 whitespace-nowrap">
+          <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Accept Car</button>
+        </td>
+      </tr>
+      {% endfor %}
+     
+    </tbody>
+  </table>
+</div> 
+  
+{% endblock %}

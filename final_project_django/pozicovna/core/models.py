@@ -23,8 +23,14 @@ class Car(models.Model):
     kilometrage = models.IntegerField()
     current_user = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name="name of current user of this car", blank=True, default=None, null=True)
     
-    def borrow(self, user:Profile) -> HttpResponse:
+    def is_borrowed(self):
         if self.current_user == None:
+            return False
+        else:
+            return True
+
+    def borrow(self, user:Profile) -> HttpResponse:
+        if self.is_borrowed():
             if user.profile.borrowed_vehicles < 5:
                 self.current_user = user.profile
                 user.profile.borrowed_vehicles += 1
@@ -57,6 +63,8 @@ class Car(models.Model):
             return self.name
         else:
             return f"{self.manufacturer} {self.name}"
+        
+
 
 
 # class Motorcycle(models.Model):

@@ -38,13 +38,14 @@ def view_profile(request):
         cars = get_list_or_404(Car, current_user = request.user.profile)
 
     except:
-        context = {'user' : request.user}
+        context = {'user' : request.user, 'cars_bool': False}
         template = loader.get_template("profile.html")
         return HttpResponse(template.render(context=context, request=request))
     
     else:
         cars = get_list_or_404(Car, current_user = request.user.profile)
         context = {'user' : request.user,
+                   'cars_bool': True,
                'cars' : cars}
-        template = loader.get_template("profile_with_cars.html")
+        template = loader.get_template("profile.html")
         return HttpResponse(template.render(context=context, request=request))
