@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ru^vj3_q8&sm7q=64@_qfs0#!o2rb4k-4znk$55k3)c+1jm8(v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 
 # Application definition
@@ -61,6 +61,8 @@ TEMPLATES = [
             BASE_DIR / "authentification" / "templates",
             BASE_DIR / "offering" / "templates",
             BASE_DIR / "statistic" / "templates",
+            BASE_DIR / "returning" / "templates",
+            BASE_DIR / "borrowing" / "templates",
 
 
         ],

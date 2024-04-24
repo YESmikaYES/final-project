@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.template import loader
+
 
 
 
@@ -29,23 +32,26 @@ class Car(models.Model):
         else:
             return True
 
-    def borrow(self, user:Profile) -> HttpResponse:
-        if self.is_borrowed():
+    def borrow(self, user:Profile):
+        if not self.is_borrowed():
             if user.profile.borrowed_vehicles < 5:
                 self.current_user = user.profile
                 user.profile.borrowed_vehicles += 1
                 self.save()
                 user.profile.save()
-                return HttpResponse("Vehicle borrowed successfully")
+                return redirect("profile")
             
             else:
-                return HttpResponse("User has reached borrowed vehicle limit")
+                template = loader.get_template("vehicle_limit.html")
+                return HttpResponse(template.render())
 
         elif self.current_user == user.profile:
-            return HttpResponse("Vehicle already in use by you")
+            template = loader.get_template("your_vehicle.html")
+            return HttpResponse(template.render())
         
         else:
-            return HttpResponse("Vehicle already in use by another user")
+            template = loader.get_template("other_user.html")
+            return HttpResponse(template.render())
 
     def give_back(self, user:Profile) -> HttpResponse:
         if self.current_user == user.profile:
@@ -53,10 +59,11 @@ class Car(models.Model):
             user.profile.borrowed_vehicles -= 1
             self.save()
             user.profile.save()
-            return HttpResponse("Vehicle returned successfully")
+            return redirect("profile")
         
         else:
-            return HttpResponse("This vehicle cannot be returned by you because it isn't in use by you")
+            template = loader.get_template("return_fail.html")
+            return HttpResponse(template.render())
 
     def __str__(self) -> str:
         if self.car_type == "formula":

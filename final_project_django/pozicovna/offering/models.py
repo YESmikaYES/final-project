@@ -23,3 +23,4 @@ class OfferedCar(models.Model):
             return self.name
         else:
             return f"{self.manufacturer} {self.name}"
+        

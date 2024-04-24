@@ -1,5 +1,53 @@
-<h1>{{ car }}</h1>
-<p>wheels: {{ car.wheels }} 
-   clutch : {{ car.clutch }}
-</p>
-<a href="{% url 'car_borrow' car.id %}">borrow</a>
+{% extends "master.html" %}
+
+{% block title %}
+    Our Cars
+{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center" style="margin-top: 7.5%; margin-bottom: 80vh;">
+   <div class="w-2/3 bg-gray-200 p-8 shadow-md rounded-md">
+     <h2 class="text-2xl font-semibold text-gray-800 mb-4">{{ car }}</h2>
+     <br>
+     <ul class="mb-4 text-md text-gray-900">
+      <li class="text-md text-gray-900">Wheels: <a class="text-lg font-medium text-black">{{car.wheels}}</a></li>
+      <li class="text-md text-gray-900">Clutch: <a class="text-lg font-medium text-black">{{car.clutch}}</a></li>
+      <li class="text-md text-gray-900">Car Type: <a class="text-lg font-medium text-black">{{car.car_type.title}}</a></li>
+      <br>
+      <li class="text-md text-gray-900">Manufacturer: <a class="text-lg font-medium text-black">{{car.manufacturer.title}}</a></li>
+      <li class="text-md text-gray-900">License Plate: <a class="text-lg font-medium text-black">{{car.license_plate.upper}}</a></li>
+      <br>
+      <li class="text-md text-gray-900">Kilometrage: <a class="text-lg font-medium text-black">{{car.kilometrage}} km</a></li>
+      
+    </ul>
+    {% if car.is_borrowed %}
+    <button class="px-4 py-2 font-bold bg-gray-400 text-black rounded-md" disabled>This car is already borrowed by another user</button>
+
+    {% else %}
+    <a id="borrow-url-{{car.id}}" class="hidden">{% url 'car_borrow' car.id %}</a>
+    <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onclick="window.location.pathname = document.getElementById('borrow-url-{{car.id}}').innerHTML">Rent</button>
+    {% endif %}
+       <!-- <div class="mb-4">
+         <label for="username" class="block text-sm font-medium text-gray-700">{{ form.username.label_tag }}</label>
+         <input required type="text" autofocus autocapitalize="none" autocomplete="username" maxlength="150" id="id_username" name="username" class="mt-1 block pl-2 w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+       </div>
+       <div class="mb-4">
+         <label for="password" class="block text-sm font-medium text-red-500">{{ form.password.label_tag }}</label>
+         <input required type="password" id="id_password" autocomplete="current-password" name="password" style="border-width: thin;" class="border-red-500 block mt-1 w-full pl-2 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500">
+         <p class="text-red-500 mt-1 block w-full">Password does not match username</p>
+       </div>
+       <div class="mb-4">
+           <label for="password" class="block text-sm font-medium">{{ form.password.label_tag }}</label>
+           <input required type="password" id="id_password" autocomplete="current-password" name="password" class="mt-1 block w-full pl-2 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+       </div>
+       <div class="flex justify-between">
+         <input type="submit" value="login" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+         <input type="hidden" name="next" value="{{ next }}">
+         <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400">Forgot password?</button>
+       </div>
+       <br />
+       <p class="text-sm text-gray-600">Don't have an Account? <a href="{% url 'signup' %}" class="text-blue-500 hover:underline">Sign Up</a></p> -->
+
+   </div>
+ </div>
+{% endblock %}

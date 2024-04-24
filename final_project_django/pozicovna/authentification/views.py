@@ -10,26 +10,38 @@ from core.models import Car
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid():
+        if form.data.get("password1") != form.data.get("password2"):
+            password_mismatch = True
+            name_error = False
+        elif form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('car_list')
+        else:
+            password_mismatch = False
+            name_error = True
+
+
     else:
         form = SignUpForm()
+        password_mismatch = False
+        name_error = False
 
     context = {
-        'form': form
+        'form': form,
+        'pwd_error' : password_mismatch,
+        "name_error" : name_error
         }
     template = loader.get_template("signup.html")
 
     return HttpResponse(template.render(context=context, request=request))
 
-def logout(request):
+def logout_view(request):
     logout(request)
-    return HttpResponse("logged out")
+    return redirect("home_page")
 
 @login_required
 def view_profile(request):

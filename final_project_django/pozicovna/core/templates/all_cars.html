@@ -10,6 +10,7 @@
         <li><a href="{% url 'car_detail' car.id %}">{{ car.name }}</a>
     {% endfor %}
 </ul> -->
+<div class="h-screen">
 <div class="flex flex-wrap ml-5">
 
     {% for car in cars %}
@@ -23,16 +24,17 @@
         <ul class="mb-4">
           <li>Wheels: {{car.wheels}}</li>
           <li>Clutch: {{car.clutch}}</li>
-          <li>Manufacturer: {{car.manufacturer}}</li>
+          <li>Manufacturer: {{car.manufacturer.title}}</li>
         </ul>
+        <a id="redirect-url-{{car.id}}" class="hidden">{% url 'car_detail' car.id %}</a>
         <!-- Action Button -->
-        <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Action</button>
+        <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onclick="window.location.pathname = document.getElementById('redirect-url-{{car.id}}').innerHTML">Details</button>
       </div>
     </div>
     {% endfor %}
-  
+  </div>
 </div>
-  
+
 
   
 {% endblock %}

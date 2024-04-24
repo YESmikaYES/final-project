@@ -28,9 +28,11 @@ def send_car_offer(request):
 @login_required(login_url='login')
 @permission_required("core.add_car")        
 def all_offered_cars(request):
+    offers = OfferedCar.objects.all()
     context = {
-        "offers": OfferedCar.objects.all().values()
+        "offers": offers
         }
+    
     template = loader.get_template("offered_cars.html")
     return HttpResponse(template.render(context=context, request=request))
 

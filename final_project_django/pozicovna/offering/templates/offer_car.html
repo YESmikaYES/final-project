@@ -1,6 +1,63 @@
 
-<form method="post">
-    {% csrf_token %}
+
+{% extends "master.html" %}
+
+{% block title %}
+    Our Cars
+{% endblock %}
+
+{% block content %}
+<!-- <form method="post">
+
+     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Submit Car</button>
-</form>
+</form> -->
+
+<div class="flex items-center justify-center h-screen">
+    <div class="max-w-md w-full bg-gray-100  p-8 shadow-md rounded-md">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Sign Up</h2>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-4">
+          <label for="id_name" class="block text-md font-medium text-gray-700">Car Name</label>
+          <input type="text" id="id_name" autofocus required aria-describedby="id_name_helptext"name="name" class="mt-1 pl-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="id_manufacturer" class="block text-md font-medium text-gray-700">Manufacturer of car</label>
+            <input type="text" id="id_manufacturer" autofocus required aria-describedby="id_manufacturer_helptext"name="manufacturer" class="mt-1 pl-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="id_car_type" class="block text-md font-medium text-gray-700">Car Type</label>
+            <input type="text" id="id_car_type" autofocus required aria-describedby="id_car_type_helptext" name="car_type" class="mt-1 pl-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="id_license_plate" class="block text-md font-medium text-gray-700">License Plate</label>
+            <input type="text" id="id_license_plate" autofocus required aria-describedby="id_license_plate_helptext" name="license_plate" class="mt-1 pl-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label class="block text-md font-medium text-gray-700">Type of Clutch</label>
+            <div class="pl-2 pt-1">
+                <input type="radio" id="id_clutch1" autofocus required aria-describedby="id_clutch_helptext" name="clutch" value="manual">
+                <label for="id_clutch1" class="text-sm font-medium text-gray-700">Manual</label><br>
+                <input type="radio" id="id_clutch2" autofocus required aria-describedby="id_clutch_helptext" name="clutch" value="automatic">        
+                <label for="id_clutch2" class="text-sm font-medium text-gray-700">Automatic</label>
+            </div>    
+        </div>
+        <div class="mb-4">
+            <label for="id_wheels" class="block text-md font-medium text-gray-700">Number of wheels</label>
+            <input type="number" value=4 id="id_wheels" autofocus required aria-describedby="id_wheels_helptext" name="wheels" class="mt-1 pl-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+            <label for="id_kilometrage" class="block text-md font-medium text-gray-700">Kilometers driven</label>
+            <input type="text" value="0" id="id_kilometrage" autofocus required aria-describedby="id_kilometrage_helptext" name="kilometrage" class="mt-1 pl-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <br>
+        <div class="flex justify-between items-center">
+          <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Submit Car</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+{% endblock %}
