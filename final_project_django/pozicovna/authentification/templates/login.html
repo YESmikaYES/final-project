@@ -6,9 +6,9 @@
 
 {% block content %}
 <!-- login.html -->
-{% if form.errors %}
+<!-- {% if form.errors %}
 <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
+{% endif %} -->
 
 {% if next %}
     {% if user.is_authenticated %}
@@ -19,24 +19,32 @@
     {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login">
-<input type="hidden" name="next" value="{{ next }}">
-</form>
+<div class="flex items-center justify-center h-screen">
+    <div class="max-w-md w-full bg-gray-100 p-8 shadow-md rounded-md">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Login</h2>
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-4">
+          <label for="username" class="block text-sm font-medium text-gray-700">{{ form.username.label_tag }}</label>
+          <input required type="text" autofocus autocapitalize="none" autocomplete="username" maxlength="150" id="id_username" name="username" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="mb-4">
+          <label for="password" class="block text-sm font-medium text-gray-700">{{ form.password.label_tag }}</label>
+          <input required type="password" id="id_password" autocomplete="current-password" name="password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div class="flex justify-between">
+          <input type="submit" value="login" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+          <input type="hidden" name="next" value="{{ next }}">
+          <button type="button" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:bg-gray-400">Forgot password?</button>
+        </div>
+        <br />
+        <p class="text-sm text-gray-600">Don't have an Account? <a href="{% url 'login' %}" class="text-blue-500 hover:underline">Sign Up</a></p>
+      </form>
+    </div>
+  </div>
+  
 
 {# Assumes you set up the password_reset view in your URLconf #}
-<p><a>Lost password?</a></p>
+<!-- <p><a>Lost password?</a></p> -->
 <!-- href="" -->
 {% endblock %}
