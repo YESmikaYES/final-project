@@ -15,6 +15,12 @@ class Profile(models.Model):
     def __str__(self) -> str:
         return self.user.username
     
+    def is_moderator(self):
+        if self.user.has_perm("core.add_car"):
+            return True
+        else:
+            return False
+    
 
 class Car(models.Model):
     name = models.CharField(max_length=50)
